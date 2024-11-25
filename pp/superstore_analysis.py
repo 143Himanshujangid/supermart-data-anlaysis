@@ -28,7 +28,7 @@ def load_data(file_path):
         return None
 
 # Load the dataset
-file_path = r"https://github.com/143Himanshujangid/supermart-data-anlaysis/blob/main/pp/superstore.csv"
+file_path = r"https://raw.githubusercontent.com/143Himanshujangid/supermart-data-anlaysis/main/pp/superstore.csv"  # Updated URL
 superstore_data = load_data(file_path)
 
 if superstore_data is not None:
