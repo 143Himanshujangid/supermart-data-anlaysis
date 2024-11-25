@@ -10,8 +10,8 @@ st.set_page_config(page_title="Superstore Analysis", layout="wide")
 @st.cache_data
 def load_data(file_path):
     try:
-        # Adding encoding to handle special characters and specifying delimiter
-        data = pd.read_csv(file_path, encoding='latin1', delimiter=',')
+        # Adding encoding to handle special characters, specifying delimiter, and skipping bad lines
+        data = pd.read_csv(file_path, encoding='latin1', delimiter=',', error_bad_lines=False)
         data['Order Date'] = pd.to_datetime(data['Order Date'], errors='coerce')
         data.dropna(subset=['Order Date'], inplace=True)
         return data
