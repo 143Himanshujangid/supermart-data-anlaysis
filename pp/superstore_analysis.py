@@ -10,17 +10,18 @@ st.set_page_config(page_title="Superstore Analysis", layout="wide")
 @st.cache_data
 def load_data(file_path):
     try:
-        # Adding encoding to handle special characters
+        # Load the dataset with appropriate encoding
         data = pd.read_csv(file_path, encoding='latin1')
         data['Order Date'] = pd.to_datetime(data['Order Date'], errors='coerce')
+        data['Month'] = data['Order Date'].dt.to_period('M')  # Add Month column
         data.dropna(subset=['Order Date'], inplace=True)
         return data
     except Exception as e:
         st.error(f"Error loading data: {e}")
         return None
 
-# Load the dataset
-file_url = "https://raw.githubusercontent.com/143Himanshujangid/supermart-data-anlaysis/main/pp/superstore.csv"
+# Load the dataset from a hosted GitHub link
+file_path = "https://raw.githubusercontent.com/143Himanshujangid/supermart-data-anlaysis/main/pp/superstore.csv"
 superstore_data = load_data(file_path)
 
 if superstore_data is not None:
@@ -50,37 +51,14 @@ if superstore_data is not None:
             "Q18: Annual Order Counts",
             "Q19: Profit by Ship Mode",
             "Q20: Regional Sales Distribution",
-            "Q21: Sales by State and Segment",
-            "Q22: Product Sales Distribution by Region",
-            "Q23: Profit vs Sales Analysis",
-            "Q24: Monthly Order Counts",
-            "Q25: Sales Trend by Product Type",
-            "Q26: Profit by Customer Segment",
-            "Q27: Sales by Salesperson",
-            "Q28: Monthly Discount Trends",
-            "Q29: Regional Sales per Employee",
-            "Q30: Best Performing Ship Mode",
-            "Q31: Sales per Customer",
-            "Q32: Profit by Product",
-            "Q33: Category vs Profit",
-            "Q34: Discount vs Profit",
-            "Q35: Sales and Profit by Ship Mode",
-            "Q36: Profit Margin by Sub-Category",
-            "Q37: Sales Correlation Matrix",
-            "Q38: Yearly Sales Growth",
-            "Q39: Sales vs Region by Sub-Category",
-            "Q40: Product Profitability Comparison",
-            "Q41: Monthly Customer Purchase Frequency",
-            "Q42: Profit by Year",
-            "Q43: Top 5 Most Ordered Products",
-            "Q44: Correlation Between Sales and Quantity",
-            "Q45: Sales Trends by Customer"
+            # Add more questions as needed
         ]
     )
 
     # Main Page
     st.title("Superstore Analysis Dashboard")
 
+    # Overview Section
     if option == "Overview":
         st.subheader("Dataset Overview")
         st.write("### First 10 Rows")
@@ -88,6 +66,7 @@ if superstore_data is not None:
         st.write("### Dataset Summary")
         st.write(superstore_data.describe())
 
+    # Q1: Sales by Category
     elif option == "Q1: Sales by Category":
         st.subheader("Q1: Sales by Category")
         category_sales = superstore_data.groupby('Category')['Sales'].sum()
@@ -98,6 +77,7 @@ if superstore_data is not None:
         ax.set_ylabel("Total Sales")
         st.pyplot(fig)
 
+    # Add additional questions in the same format
     elif option == "Q2: Sales by Sub-Category":
         st.subheader("Q2: Sales by Sub-Category")
         sub_category_sales = superstore_data.groupby('Sub-Category')['Sales'].sum().sort_values()
@@ -107,6 +87,12 @@ if superstore_data is not None:
         ax.set_xlabel("Total Sales")
         ax.set_ylabel("Sub-Category")
         st.pyplot(fig)
+
+    # Continue adding questions...
+
+else:
+    st.error("Data could not be loaded. Please check the file or URL.")
+
 
     elif option == "Q3: Sales by Region":
         st.subheader("Q3: Sales by Region")
