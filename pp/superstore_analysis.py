@@ -20,7 +20,7 @@ def load_data(file_path):
         return None
 
 # Load the dataset
-file_path = r"C:\Users\HIMANSHU\OneDrive\Desktop\pp\superstore.csv"
+file_path = r"https://github.com/143Himanshujangid/supermart-data-anlaysis/blob/main/pp/superstore.csv"
 superstore_data = load_data(file_path)
 
 if superstore_data is not None:
