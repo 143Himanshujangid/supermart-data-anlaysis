@@ -11,7 +11,7 @@ st.set_page_config(page_title="Superstore Analysis", layout="wide")
 def load_data(file_path):
     try:
         # Adding encoding to handle special characters, specifying delimiter, and skipping bad lines
-        data = pd.read_csv(file_path, encoding='latin1', delimiter=',', on_bad_lines='skip')
+        data = pd.read_csv(file_path, encoding='utf-8', delimiter=',', on_bad_lines='skip')
 
         # Print problematic rows
         for i, row in data.iterrows():
@@ -28,7 +28,7 @@ def load_data(file_path):
         return None
 
 # Load the dataset
-file_path = r"https://github.com/143Himanshujangid/supermart-data-anlaysis/blob/main/pp/Superstore%20(1).csv"
+file_path = r"https://github.com/143Himanshujangid/supermart-data-anlaysis/blob/main/pp/superstore.csv"
 superstore_data = load_data(file_path)
 
 if superstore_data is not None:
