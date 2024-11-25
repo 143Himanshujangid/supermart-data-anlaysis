@@ -11,7 +11,7 @@ st.set_page_config(page_title="Superstore Analysis", layout="wide")
 def load_data(file_path):
     try:
         # Adding encoding to handle special characters, specifying delimiter, and skipping bad lines
-        data = pd.read_csv(file_path, encoding='utf-8', delimiter=',', on_bad_lines='skip')
+        data = pd.read_csv(file_path, encoding='latin-1', delimiter=',', on_bad_lines='skip')
 
         # Print problematic rows
         for i, row in data.iterrows():
