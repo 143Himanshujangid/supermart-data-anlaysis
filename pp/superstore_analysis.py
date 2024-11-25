@@ -12,6 +12,14 @@ def load_data(file_path):
     try:
         # Adding encoding to handle special characters, specifying delimiter, and skipping bad lines
         data = pd.read_csv(file_path, encoding='latin1', delimiter=',', on_bad_lines='skip')
+
+        # Print problematic rows
+        for i, row in data.iterrows():
+            try:
+                pd.to_datetime(row['Order Date'])
+            except ValueError:
+                print(f"Error parsing date in row {i}: {row['Order Date']}")
+
         data['Order Date'] = pd.to_datetime(data['Order Date'], errors='coerce')
         data.dropna(subset=['Order Date'], inplace=True)
         return data
@@ -269,5 +277,3 @@ if superstore_data is not None:
         regional_sales_dist.plot(kind='pie', autopct='%1.1f%%', startangle=90, ax=ax)
         ax.set_title("Regional Sales Distribution")
         st.pyplot(fig)
-
-   
